@@ -1,0 +1,137 @@
+hosing a maven repo to github.
+  settings.xml path -->  /root/.m2.settings.xml
+  
+  <settings>
+    <servers> 
+        <server>
+            <id>github</id>
+            <password>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123456</password>
+        </server>
+    </servers>
+</settings>
+
+pom.xml  path --> basd_dir/pom.xml
+
+ genearte sample maven project using 
+ 1. ----> mvn archtype-generate
+ 2. ---->  place credential in setting.xml
+ 3. ----> configure pom.xml
+ 
+ root@ip-172-31-24-83:/var/tmp/maven/health# cat pom.xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.companyname.insurance</groupId>
+  <artifactId>health</artifactId>
+  <version>1.0-SNAPSHOT</version>
+
+  <name>health</name>
+  <!-- FIXME change it to the project's website -->
+  <url>https://github.com/porwalneha34/health</url>
+<scm>
+    <url>https://github.com/porwalneha34/health</url>
+    <connection>scm:git:git@github.com:porwalneha34/health.git</connection>
+    <developerConnection>scm:git:git@github.com:porwalneha34/health.git</developerConnection>
+</scm>
+
+
+  <distributionManagement>
+    <repository>
+        <id>internal.repo</id>
+        <name>Temporary Staging Repository</name>
+        <url>file://${project.build.directory}/mvn-artifact</url>
+    </repository>
+</distributionManagement>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+    <github.global.server>github</github.global.server>
+  </properties>
+
+ <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+<plugin>
+    <groupId>com.github.github</groupId>
+    <artifactId>site-maven-plugin</artifactId>
+    <version>0.12</version>
+    <configuration>
+        <message>Maven artifacts for ${project.version}</message>
+        <userName>porwalneha34</userName>
+        <noJekyll>true</noJekyll>
+        <outputDirectory>${project.build.directory}/mvn-artifact</outputDirectory>
+        <branch>refs/heads/feature</branch>
+        <includes>
+            <include>**/*</include>
+        </includes>
+        <merge>true</merge>
+        <repositoryName>health</repositoryName>
+        <repositoryOwner>porwalneha34</repositoryOwner>
+        <server>github</server>
+    </configuration>
+    <executions>
+        <execution>
+            <goals>
+                <goal>site</goal>
+            </goals>
+            <phase>deploy</phase>
+        </execution>
+    </executions>
+</plugin>
+
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.1</version>
+                <configuration>
+                    <altDeploymentRepository>
+                        internal.repo::default::file://${project.build.directory}/mvn-artifact
+                    </altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+
+root@ip-172-31-24-83:/var/tmp/maven/health#
+
+then 
+mvn clean deploy
