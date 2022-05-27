@@ -1,0 +1,30 @@
+udo apt-get install openjdk-8-jdk
+
+Verify that Java and the Java compiler have been properly installed:
+java -version
+javac -version
+
+
+install maven
+
+https://downloads.apache.org/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+
+wget https://downloads.apache.org/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz -P /tmp
+
+tar xf /tmp/apache-maven-*.tar.gz -C /opt
+ln -s /opt/apache-maven-3.6.0 /opt/maven
+
+sudo apt install default-jdk
+java -version
+
+
+
+wget https://downloads.apache.org/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz -P /tmp
+
+tar xf /tmp/apache-maven-*.tar.gz -C /opt
+sudo ln -s /opt/apache-maven-3.6.0 /opt/maven   --> check apache version file name here
+
+export JAVA_HOME=/usr/lib/jvm/default-java
+export M2_HOME=/opt/maven
+export MAVEN_HOME=/opt/maven
+export PATH=${M2_HOME}/bin:${PATH}
