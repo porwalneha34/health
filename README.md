@@ -16,3 +16,8 @@ https://www.baeldung.com/maven-settings-xml
 
 
 set pom.xml and settings.xml 
+
+
+For Jenkins installation in vmbox rhel 8
+
+https://www.redhat.com/sysadmin/install-jenkins-rhel8
