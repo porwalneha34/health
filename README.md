@@ -21,3 +21,6 @@ set pom.xml and settings.xml
 For Jenkins installation in vmbox rhel 8
 
 https://www.redhat.com/sysadmin/install-jenkins-rhel8
+
+
+https://kbroman.org/github_tutorial/pages/init.html   --> Git project from scratch 
