@@ -24,3 +24,10 @@ https://www.redhat.com/sysadmin/install-jenkins-rhel8
 
 
 https://kbroman.org/github_tutorial/pages/init.html   --> Git project from scratch 
+
+Jenkins setup issue withd docker
+error: Cannot run docker commands through Jenkin's Blue Ocean: ERRO[0000] No subuid ranges found for user “jenkins” in /etc/subuid
+https://stackoverflow.com/questions/58855758/cannot-run-docker-commands-through-jenkins-blue-ocean-erro0000-no-subuid-ran
+
+sol- echo jenkins:10000:65536 >> /etc/subuid
+   echo jenkins:10000:65536 >> /etc/subgid
